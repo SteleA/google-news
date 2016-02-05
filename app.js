@@ -4,8 +4,8 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 
-const googleNews = ({ number = 10, term = ''}, cb) => {
-  request.get(`https://www.google.com/search?num=${number}&tbm=nws&q=${term}`, (err, response, html) => {
+const googleNews = (opt, cb) => {
+  request.get(`https://www.google.com/search?num=${opt.number}&tbm=nws&q=${opt.term}`, (err, response, html) => {
     if(err) return cb(err);
 
     const $       = cheerio.load(html);
