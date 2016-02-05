@@ -1,7 +1,7 @@
 'use strict'
 
-import request from 'request';
-import cheerio from 'cheerio';
+var request = require('request');
+var cheerio = require('cheerio');
 
 
 const googleNews = ({ number = 10, term = ''}, cb) => {
@@ -30,4 +30,4 @@ const googleNews = ({ number = 10, term = ''}, cb) => {
 };
 
 
-export default googleNews;
+module.exposts = googleNews;
