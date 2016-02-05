@@ -2,16 +2,15 @@
   "name": "google-news",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node server/app.js",
+    "start": "babel-node app.js",
     "babel": "nodemon --exec babel-node app.js"
   },
   "author": "Alex <alemik@live.se>",
   "license": "ISC",
   "dependencies": {
-    "babel": "6.3.26",
     "babel-cli": "6.4.5",
     "babel-preset-es2015": "6.3.13",
     "cheerio": "0.20.0",
