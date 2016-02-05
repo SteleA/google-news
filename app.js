@@ -1,33 +1,48 @@
-'use strict'
+'use strict';
 
-var request = require('request');
-var cheerio = require('cheerio');
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-const googleNews = (opt, cb) => {
-  request.get(`https://www.google.com/search?num=${opt.number}&tbm=nws&q=${opt.term}`, (err, response, html) => {
-    if(err) return cb(err);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
-    const $       = cheerio.load(html);
-    let newsArr   = [];
+var _request = require('request');
 
-     $('.g').each(function(i, news){
+var _request2 = _interopRequireDefault(_request);
 
-      const image   = $(news).find('img').attr('src');
-      const url     = $(news).find('a').attr('href').substring(7).split('&sa')[0];
-      const title   = $(news).find('h3').text();
-      const source  = $(news).find('h3').next().text().split('-')[0];
-      const time    = $(news).find('h3').next().text().split('-')[1];
-      const desc    = $(news).find('h3').next().next().text();
+var _cheerio = require('cheerio');
 
-      newsArr       = [ {image, url, title, source, time, desc} , ...newsArr];
+var _cheerio2 = _interopRequireDefault(_cheerio);
 
+var googleNews = function googleNews(_ref, cb) {
+  var _ref$number = _ref.number;
+  var number = _ref$number === undefined ? 10 : _ref$number;
+  var _ref$term = _ref.term;
+  var term = _ref$term === undefined ? '' : _ref$term;
+
+  _request2['default'].get('https://www.google.com/search?num=' + number + '&tbm=nws&q=' + term, function (err, response, html) {
+    if (err) return cb(err);
+
+    var $ = _cheerio2['default'].load(html);
+    var newsArr = [];
+
+    $('.g').each(function (i, news) {
+
+      var image = $(news).find('img').attr('src');
+      var url = $(news).find('a').attr('href').substring(7).split('&sa')[0];
+      var title = $(news).find('h3').text();
+      var source = $(news).find('h3').next().text().split('-')[0];
+      var time = $(news).find('h3').next().text().split('-')[1];
+      var desc = $(news).find('h3').next().next().text();
+
+      newsArr = [{ image: image, url: url, title: title, source: source, time: time, desc: desc }].concat(_toConsumableArray(newsArr));
     });
 
     return cb(null, newsArr);
-
   });
 };
 
-
-module.exposts = googleNews;
+exports['default'] = googleNews;
+module.exports = exports['default'];
